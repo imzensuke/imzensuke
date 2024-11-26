@@ -115,628 +115,630 @@
     </footer>
 
     <script>
-        async function switchNetwork() {
-            const targetChainId = '0x6d'; // Shibarium chain ID
-            try {
-                await window.ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: targetChainId }]
-                });
-            } catch (switchError) {
-                if (switchError.code === 4902) {
-                    console.error('Chain ID not added.');
-                }
-            }
-        }
-    
-        if (window.ethereum) {
-            try {
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const web3 = new Web3(window.ethereum);
-                const chainId = await web3.eth.getChainId();
-    
-                if (chainId !== 109 || chainId !== '0x6d') {
-                    await switchNetwork();
-                }
-
-                const abi = [
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "ticketCount",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "buyTickets",
-                        "outputs": [],
-                        "stateMutability": "payable",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "address",
-                                "name": "winnerAddress",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "endRaffle",
-                        "outputs": [],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "stateMutability": "nonpayable",
-                        "type": "constructor"
-                    },
-                    {
-                        "anonymous": false,
-                        "inputs": [
-                            {
-                                "indexed": false,
-                                "internalType": "uint256",
-                                "name": "raffleId",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "NewRaffleStarted",
-                        "type": "event"
-                    },
-                    {
-                        "anonymous": false,
-                        "inputs": [
-                            {
-                                "indexed": false,
-                                "internalType": "uint256",
-                                "name": "raffleId",
-                                "type": "uint256"
-                            },
-                            {
-                                "indexed": false,
-                                "internalType": "address",
-                                "name": "winner",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "RaffleEnded",
-                        "type": "event"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "startRaffle",
-                        "outputs": [],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "address",
-                                "name": "nftAdd",
-                                "type": "address"
-                            },
-                            {
-                                "internalType": "uint256",
-                                "name": "tokenId",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "withdrawNFT",
-                        "outputs": [],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "amount",
-                                "type": "uint256"
-                            },
-                            {
-                                "internalType": "address",
-                                "name": "toaddress",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "withdrawShib",
-                        "outputs": [],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "bitcoin",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "bubu",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "bylo",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "cent",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "cfun",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "chewy",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "currentRaffleId",
-                        "outputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "",
-                                "type": "uint256"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "dudu",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "address",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "entries",
-                        "outputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "",
-                                "type": "uint256"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "feed",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "fef",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "address",
-                                "name": "participant",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "getTickets",
-                        "outputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "",
-                                "type": "uint256"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "getWinner",
-                        "outputs": [
-                            {
-                                "internalType": "address",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "honey",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "jam",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "klaus",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "knine",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "liger",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "mojo",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "mx",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "nft",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC721",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "owner",
-                        "outputs": [
-                            {
-                                "internalType": "address",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "raffles",
-                        "outputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "totalEntries",
-                                "type": "uint256"
-                            },
-                            {
-                                "internalType": "address",
-                                "name": "winner",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "ryka",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "sharbiToken",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "shibToken",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "shups",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "snooze",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "wBone",
-                        "outputs": [
-                            {
-                                "internalType": "contract IERC20",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    }
-                ];
-                const tokenabi = [
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "address",
-                                "name": "recipient",
-                                "type": "address"
-                            },
-                            {
-                                "internalType": "uint256",
-                                "name": "amount",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "transfer",
-                        "outputs": [
-                            {
-                                "internalType": "bool",
-                                "name": "",
-                                "type": "bool"
-                            }
-                        ],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    }
-                ];
-    
-                const accounts = await web3.eth.getAccounts();
-                const account = accounts[0];
-                const tokenAddr = "0x495eea66B0f8b636D441dC6a98d8F5C3D455C4c0"; 
-                const contractAddress = "0xd8b4794B47dBF1e6179Cff547791EE1d20F27cb7";
-                const doorContract = new web3.eth.Contract(abi, contractAddress);
-                const shibToken = new web3.eth.Contract(tokenabi, tokenAddr);
-    
+        document.addEventListener('DOMContentLoaded', async () => {
+            async function switchNetwork() {
+                const targetChainId = '0x6d'; // Shibarium chain ID
                 try {
-                    const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/shibarium/0x368616ce3500a9ece8708eb45d3a351990b8407a');
-                    const data = await response.json();
-    
-                    // Extract SHIB price in USD from the API response
-                    const priceUsd = data.pairs[0].priceUsd;
-    
-                    // Calculate SHIB required for 1 USD
-                    const shibForOneUSD = (1 / priceUsd).toFixed(0); // Limiting to 0 decimal places for SHIB value
-                    async function buyTicket() {
-                        await shibToken.methods.transfer(contractAddress, web3.utils.toWei(shibForOneUSD, 'ether')).send({ from: accounts[0] });
-                        await doorContract.methods.buyTickets(1).send({ from: accounts[0] });
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: targetChainId }]
+                    });
+                } catch (switchError) {
+                    if (switchError.code === 4902) {
+                        console.error('Chain ID not added.');
+                    }
+                }
+            }
+        
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const web3 = new Web3(window.ethereum);
+                    const chainId = await web3.eth.getChainId();
+        
+                    if (chainId !== 109 || chainId !== '0x6d') {
+                        await switchNetwork();
                     }
     
-                    // Fetch current raffle and entries
-                    const currentId = await doorContract.methods.currentRaffleId().call({ from: accounts[0] });
-                    const entries = await doorContract.methods.entries().call({ from: accounts[0] });
-    
-                    const raffleData = {
-                        active: {
-                            raffleId: currentId,
-                            prizePool: "1$ SHIB",
-                            totalEntries: entries
+                    const abi = [
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "ticketCount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "buyTickets",
+                            "outputs": [],
+                            "stateMutability": "payable",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "address",
+                                    "name": "winnerAddress",
+                                    "type": "address"
+                                }
+                            ],
+                            "name": "endRaffle",
+                            "outputs": [],
+                            "stateMutability": "nonpayable",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "stateMutability": "nonpayable",
+                            "type": "constructor"
+                        },
+                        {
+                            "anonymous": false,
+                            "inputs": [
+                                {
+                                    "indexed": false,
+                                    "internalType": "uint256",
+                                    "name": "raffleId",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "NewRaffleStarted",
+                            "type": "event"
+                        },
+                        {
+                            "anonymous": false,
+                            "inputs": [
+                                {
+                                    "indexed": false,
+                                    "internalType": "uint256",
+                                    "name": "raffleId",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "indexed": false,
+                                    "internalType": "address",
+                                    "name": "winner",
+                                    "type": "address"
+                                }
+                            ],
+                            "name": "RaffleEnded",
+                            "type": "event"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "startRaffle",
+                            "outputs": [],
+                            "stateMutability": "nonpayable",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "address",
+                                    "name": "nftAdd",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "tokenId",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "withdrawNFT",
+                            "outputs": [],
+                            "stateMutability": "nonpayable",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "amount",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "toaddress",
+                                    "type": "address"
+                                }
+                            ],
+                            "name": "withdrawShib",
+                            "outputs": [],
+                            "stateMutability": "nonpayable",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "bitcoin",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "bubu",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "bylo",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "cent",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "cfun",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "chewy",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "currentRaffleId",
+                            "outputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "dudu",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "address",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "name": "entries",
+                            "outputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "feed",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "fef",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "address",
+                                    "name": "participant",
+                                    "type": "address"
+                                }
+                            ],
+                            "name": "getTickets",
+                            "outputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "getWinner",
+                            "outputs": [
+                                {
+                                    "internalType": "address",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "honey",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "jam",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "klaus",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "knine",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "liger",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "mojo",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "mx",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "nft",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC721",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "owner",
+                            "outputs": [
+                                {
+                                    "internalType": "address",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "raffles",
+                            "outputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "totalEntries",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "address",
+                                    "name": "winner",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "ryka",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "sharbiToken",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "shibToken",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "shups",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "snooze",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "wBone",
+                            "outputs": [
+                                {
+                                    "internalType": "contract IERC20",
+                                    "name": "",
+                                    "type": "address"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
                         }
-                    };
-    
-                    // Update active raffle info
-                    document.getElementById("raffle-id").textContent = raffleData.active.raffleId;
-                    document.getElementById("prize-pool").textContent = raffleData.active.prizePool;
-                    document.getElementById("total-entries").textContent = raffleData.active.totalEntries;
-    
+                    ];
+                    const tokenabi = [
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "address",
+                                    "name": "recipient",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "amount",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "transfer",
+                            "outputs": [
+                                {
+                                    "internalType": "bool",
+                                    "name": "",
+                                    "type": "bool"
+                                }
+                            ],
+                            "stateMutability": "nonpayable",
+                            "type": "function"
+                        }
+                    ];
+        
+                    const accounts = await web3.eth.getAccounts();
+                    const account = accounts[0];
+                    const tokenAddr = "0x495eea66B0f8b636D441dC6a98d8F5C3D455C4c0"; 
+                    const contractAddress = "0xd8b4794B47dBF1e6179Cff547791EE1d20F27cb7";
+                    const doorContract = new web3.eth.Contract(abi, contractAddress);
+                    const shibToken = new web3.eth.Contract(tokenabi, tokenAddr);
+        
+                    try {
+                        const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/shibarium/0x368616ce3500a9ece8708eb45d3a351990b8407a');
+                        const data = await response.json();
+        
+                        // Extract SHIB price in USD from the API response
+                        const priceUsd = data.pairs[0].priceUsd;
+        
+                        // Calculate SHIB required for 1 USD
+                        const shibForOneUSD = (1 / priceUsd).toFixed(0); // Limiting to 0 decimal places for SHIB value
+                        async function buyTicket() {
+                            await shibToken.methods.transfer(contractAddress, web3.utils.toWei(shibForOneUSD, 'ether')).send({ from: accounts[0] });
+                            await doorContract.methods.buyTickets(1).send({ from: accounts[0] });
+                        }
+        
+                        // Fetch current raffle and entries
+                        const currentId = await doorContract.methods.currentRaffleId().call({ from: accounts[0] });
+                        const entries = await doorContract.methods.entries().call({ from: accounts[0] });
+        
+                        const raffleData = {
+                            active: {
+                                raffleId: currentId,
+                                prizePool: "1$ SHIB",
+                                totalEntries: entries
+                            }
+                        };
+        
+                        // Update active raffle info
+                        document.getElementById("raffle-id").textContent = raffleData.active.raffleId;
+                        document.getElementById("prize-pool").textContent = raffleData.active.prizePool;
+                        document.getElementById("total-entries").textContent = raffleData.active.totalEntries;
+        
+                    } catch (error) {
+                        console.error('Error fetching SHIB price:', error);
+                    }
                 } catch (error) {
-                    console.error('Error fetching SHIB price:', error);
+                    console.log(error);
                 }
-            } catch (error) {
-                console.log(error);
             }
+        
+            const loadRaffleData = () => {
+                // Load active raffle
+                document.getElementById("raffle-id").textContent = raffleData.active.raffleId;
+                document.getElementById("prize-pool").textContent = raffleData.active.prizePool;
+                document.getElementById("total-entries").textContent = raffleData.active.totalEntries;
+        
+                // Load ended raffles
+                const endedRafflesList = document.getElementById("ended-raffles");
+                endedRafflesList.innerHTML = "";
+                raffleData.ended.forEach((r) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td>${r.raffleId}</td><td>${r.winner}</td><td>${r.entries}</td>`;
+                    endedRafflesList.appendChild(row);
+                });
+            };
+        
+            loadRaffleData();
         }
-    
-        const loadRaffleData = () => {
-            // Load active raffle
-            document.getElementById("raffle-id").textContent = raffleData.active.raffleId;
-            document.getElementById("prize-pool").textContent = raffleData.active.prizePool;
-            document.getElementById("total-entries").textContent = raffleData.active.totalEntries;
-    
-            // Load ended raffles
-            const endedRafflesList = document.getElementById("ended-raffles");
-            endedRafflesList.innerHTML = "";
-            raffleData.ended.forEach((r) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `<td>${r.raffleId}</td><td>${r.winner}</td><td>${r.entries}</td>`;
-                endedRafflesList.appendChild(row);
-            });
-        };
-    
-        loadRaffleData();
     </script>    
 </body>
 </html>
