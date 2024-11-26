@@ -714,11 +714,19 @@
                 }
 
                 // Fetch current raffle ID and total entries
-                const raffleId = await doorContract.methods.currentRaffleId().call({ from: account });
-                const totalEntries = await doorContract.methods.entries(JSON.stringify(account.toString())).call({ from: account });
+                const raffleIds = await doorContract.methods.currentRaffleId().call({ from: account });
+                const totalEntriess = await doorContract.methods.entries(JSON.stringify(account.toString())).call({ from: account });
 
                 // Update the UI with active raffle information
-                updateRaffleData(raffleId, totalEntries);
+                updateRaffleData(raffleIds, totalEntries);
+
+                const raffleData = {
+                        active: {
+                            raffleId: raffleIds,
+                            prizePool: "1$ SHIB",
+                            totalEntries: totalEntriess
+                        }
+                    };
 
             } catch (error) {
                 console.error('Error while connecting to Ethereum or interacting with the contract:', error);
@@ -740,20 +748,12 @@
         }
     }
 
-        const raffleData = {
-                        active: {
-                            raffleId: 1,
-                            prizePool: "1$ SHIB",
-                            totalEntries: 18
-                        }
-                    };
-
     // Update the active raffle data on the UI
     function updateRaffleData(raffleId, totalEntries) {
         const prizePool = "1$ SHIB"; // Hardcoded prize pool for simplicity
-        document.getElementById("raffle-id").textContent = raffleId;
+        document.getElementById("raffle-id").textContent = raffleIds;
         document.getElementById("prize-pool").textContent = prizePool;
-        document.getElementById("total-entries").textContent = totalEntries;
+        document.getElementById("total-entries").textContent = totalEntriess;
     }
         
 
