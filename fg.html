@@ -103,7 +103,514 @@
                 await switchNetwork();
             }
 
-            const abi = ""; // Add contract ABI
+            const abi = [
+            	{
+            		"inputs": [
+            			{
+            				"internalType": "uint256",
+            				"name": "ticketCount",
+            				"type": "uint256"
+            			}
+            		],
+            		"name": "buyTickets",
+            		"outputs": [],
+            		"stateMutability": "payable",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [
+            			{
+            				"internalType": "address",
+            				"name": "winnerAddress",
+            				"type": "address"
+            			}
+            		],
+            		"name": "endRaffle",
+            		"outputs": [],
+            		"stateMutability": "nonpayable",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"stateMutability": "nonpayable",
+            		"type": "constructor"
+            	},
+            	{
+            		"anonymous": false,
+            		"inputs": [
+            			{
+            				"indexed": false,
+            				"internalType": "uint256",
+            				"name": "raffleId",
+            				"type": "uint256"
+            			}
+            		],
+            		"name": "NewRaffleStarted",
+            		"type": "event"
+            	},
+            	{
+            		"anonymous": false,
+            		"inputs": [
+            			{
+            				"indexed": false,
+            				"internalType": "uint256",
+            				"name": "raffleId",
+            				"type": "uint256"
+            			},
+            			{
+            				"indexed": false,
+            				"internalType": "address",
+            				"name": "winner",
+            				"type": "address"
+            			}
+            		],
+            		"name": "RaffleEnded",
+            		"type": "event"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "startRaffle",
+            		"outputs": [],
+            		"stateMutability": "nonpayable",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [
+            			{
+            				"internalType": "address",
+            				"name": "nftAdd",
+            				"type": "address"
+            			},
+            			{
+            				"internalType": "uint256",
+            				"name": "tokenId",
+            				"type": "uint256"
+            			}
+            		],
+            		"name": "withdrawNFT",
+            		"outputs": [],
+            		"stateMutability": "nonpayable",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [
+            			{
+            				"internalType": "uint256",
+            				"name": "amount",
+            				"type": "uint256"
+            			},
+            			{
+            				"internalType": "address",
+            				"name": "toaddress",
+            				"type": "address"
+            			}
+            		],
+            		"name": "withdrawShib",
+            		"outputs": [],
+            		"stateMutability": "nonpayable",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "bitcoin",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "bubu",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "bylo",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "cent",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "cfun",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "chewy",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "currentRaffleId",
+            		"outputs": [
+            			{
+            				"internalType": "uint256",
+            				"name": "",
+            				"type": "uint256"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "dudu",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [
+            			{
+            				"internalType": "address",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"name": "entries",
+            		"outputs": [
+            			{
+            				"internalType": "uint256",
+            				"name": "",
+            				"type": "uint256"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "feed",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "fef",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [
+            			{
+            				"internalType": "address",
+            				"name": "participant",
+            				"type": "address"
+            			}
+            		],
+            		"name": "getTickets",
+            		"outputs": [
+            			{
+            				"internalType": "uint256",
+            				"name": "",
+            				"type": "uint256"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "getWinner",
+            		"outputs": [
+            			{
+            				"internalType": "address",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "honey",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "jam",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "klaus",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "knine",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "liger",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "mojo",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "mx",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "nft",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC721",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "owner",
+            		"outputs": [
+            			{
+            				"internalType": "address",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [
+            			{
+            				"internalType": "uint256",
+            				"name": "",
+            				"type": "uint256"
+            			}
+            		],
+            		"name": "raffles",
+            		"outputs": [
+            			{
+            				"internalType": "uint256",
+            				"name": "totalEntries",
+            				"type": "uint256"
+            			},
+            			{
+            				"internalType": "address",
+            				"name": "winner",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "ryka",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "sharbiToken",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "shibToken",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "shups",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "snooze",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	},
+            	{
+            		"inputs": [],
+            		"name": "wBone",
+            		"outputs": [
+            			{
+            				"internalType": "contract IERC20",
+            				"name": "",
+            				"type": "address"
+            			}
+            		],
+            		"stateMutability": "view",
+            		"type": "function"
+            	}
+            ]; // Add contract ABI
             const tokenabi = [
                 {
                     "inputs": [
