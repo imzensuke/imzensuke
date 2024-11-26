@@ -740,25 +740,6 @@
         }
     }
 
-    // Update the active raffle data on the UI
-    function updateRaffleData(raffleId, totalEntries) {
-        const prizePool = "1$ SHIB"; // Hardcoded prize pool for simplicity
-        document.getElementById("raffle-id").textContent = raffleId;
-        document.getElementById("prize-pool").textContent = prizePool;
-        document.getElementById("total-entries").textContent = totalEntries;
-    }
-
-    // Load and display ended raffles
-    function loadEndedRaffles(raffleData) {
-        const endedRafflesList = document.getElementById("ended-raffles");
-        endedRafflesList.innerHTML = ""; // Clear any existing list
-
-        raffleData.ended.forEach(r => {
-            const row = document.createElement("tr");
-            row.innerHTML = `<td>${r.raffleId}</td><td>${r.winner}</td><td>${r.entries}</td>`;
-            endedRafflesList.appendChild(row);
-        });
-    }
         const raffleData = {
                         active: {
                             raffleId: 1,
@@ -766,6 +747,14 @@
                             totalEntries: 18
                         }
                     };
+
+    // Update the active raffle data on the UI
+    function updateRaffleData(raffleId, totalEntries) {
+        const prizePool = "1$ SHIB"; // Hardcoded prize pool for simplicity
+        document.getElementById("raffle-id").textContent = raffleId;
+        document.getElementById("prize-pool").textContent = prizePool;
+        document.getElementById("total-entries").textContent = totalEntries;
+    }
         
 
     // Initialize the UI by loading the raffle data
