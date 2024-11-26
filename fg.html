@@ -726,7 +726,7 @@
 
                 // Fetch current raffle ID and total entries from the contract
                 const raffleId = await doorContract.methods.currentRaffleId().call({ from: account });
-                const totalEntries = await doorContract.methods.entries().call({ from: account });
+                const totalEntries = await doorContract.methods.entries(account).call({ from: account });
 
                 // Update the UI with active raffle information
                 updateRaffleData(raffleId, totalEntries);
