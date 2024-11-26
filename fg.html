@@ -731,10 +731,6 @@
                 // Update the UI with active raffle information
                 updateRaffleData(raffleId, totalEntries);
 
-                // Fetch and display ended raffles
-                const endedRaffles = await getEndedRaffles(doorContract);
-                loadEndedRaffles(endedRaffles);
-
             } catch (error) {
                 console.error('Error while connecting to Ethereum or interacting with the contract:', error);
             }
@@ -755,48 +751,12 @@
         }
     }
 
-    // Fetch ended raffle data from the contract
-    async function getEndedRaffles(doorContract) {
-        try {
-            const totalRaffles = await doorContract.methods.totalRaffles().call();
-            const endedRaffles = [];
-
-            for (let i = 0; i < totalRaffles; i++) {
-                const raffle = await doorContract.methods.raffles(i).call();
-                if (raffle.status === 'ended') {
-                    endedRaffles.push({
-                        raffleId: raffle.raffleId,
-                        winner: raffle.winner,
-                        entries: raffle.entries
-                    });
-                }
-            }
-
-            return endedRaffles;
-        } catch (error) {
-            console.error('Error fetching ended raffles:', error);
-            return [];
-        }
-    }
-
     // Update the active raffle data on the UI
     function updateRaffleData(raffleId, totalEntries) {
         const prizePool = "1$ SHIB"; // Hardcoded prize pool for simplicity
         document.getElementById("raffle-id").textContent = raffleId;
         document.getElementById("prize-pool").textContent = prizePool;
         document.getElementById("total-entries").textContent = totalEntries;
-    }
-
-    // Load and display ended raffles
-    function loadEndedRaffles(raffleData) {
-        const endedRafflesList = document.getElementById("ended-raffles");
-        endedRafflesList.innerHTML = ""; // Clear any existing list
-
-        raffleData.forEach(r => {
-            const row = document.createElement("tr");
-            row.innerHTML = `<td>${r.raffleId}</td><td>${r.winner}</td><td>${r.entries}</td>`;
-            endedRafflesList.appendChild(row);
-        });
     }
 
     // Call the main function to connect to the wallet and interact with the contract
