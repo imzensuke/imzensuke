@@ -760,19 +760,6 @@
         });
     }
 
-    // Simulated data (replace with contract interaction when available)
-    const raffleData = {
-        active: {
-            raffleId: 2,
-            prizePool: "1$ SHIB",
-            totalEntries: 18
-        },
-        ended: [
-            { raffleId: 1, winner: "0xxyz...123", entries: 15 },
-            { raffleId: 0, winner: "0xabc...456", entries: 10 }
-        ]
-    };
-
     // Initialize the UI by loading the raffle data
     function loadRaffleData() {
         updateRaffleData(raffleData.active.raffleId, raffleData.active.totalEntries);
