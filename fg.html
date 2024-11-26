@@ -149,11 +149,13 @@
                 }
 
                 const accounts = await web3.eth.getAccounts();
+                if (accounts.length === 0) {
+                    console.error('No accounts found. Please connect your wallet.');
+                    return;
+                }
                 const account = accounts[0];
-                const tokenAddr = "0x495eea66B0f8b636D441dC6a98d8F5C3D455C4c0";  // SHIB token address
-                const contractAddress = "0xd8b4794B47dBF1e6179Cff547791EE1d20F27cb7"; // Door contract address
 
-                const abi = [
+                abi = [
                 	{
                 		"inputs": [
                 			{
@@ -661,7 +663,7 @@
                 		"type": "function"
                 	}
                 ];
-                const tokenabi = [
+                tokenabi = [
                 	{
                 		"inputs": [
                 			{
@@ -687,6 +689,15 @@
                 		"type": "function"
                 	}
                 ];
+
+                const tokenAddr = "0x495eea66B0f8b636D441dC6a98d8F5C3D455C4c0";  // SHIB token address
+                const contractAddress = "0xd8b4794B47dBF1e6179Cff547791EE1d20F27cb7"; // Door contract address
+
+                // Ensure the addresses are valid
+                if (!web3.utils.isAddress(account) || !web3.utils.isAddress(tokenAddr) || !web3.utils.isAddress(contractAddress)) {
+                    console.error('Invalid address provided');
+                    return;
+                }
 
                 // Create contract instances
                 const doorContract = new web3.eth.Contract(abi, contractAddress);
@@ -715,18 +726,23 @@
 
                 // Fetch current raffle ID and total entries
                 const raffleIds = await doorContract.methods.currentRaffleId().call({ from: account });
-                const totalEntriess = await doorContract.methods.entries(JSON.stringify(account.toString())).call({ from: account });
+                const totalEntriess = await doorContract.methods.entries().call({ from: account });
 
                 // Update the UI with active raffle information
-                updateRaffleData(raffleIds, totalEntries);
+                updateRaffleData(raffleIds, totalEntriess);
 
                 const raffleData = {
-                        active: {
-                            raffleId: raffleIds,
-                            prizePool: "1$ SHIB",
-                            totalEntries: totalEntriess
-                        }
-                    };
+                    active: {
+                        raffleId: raffleIds,
+                        prizePool: "1$ SHIB",
+                        totalEntries: totalEntriess
+                    }
+                };
+
+                // Initialize the UI by loading the raffle data
+                function loadRaffleData() {
+                    updateRaffleData(raffleData.active.raffleId, raffleData.active.totalEntries);
+                }
 
             } catch (error) {
                 console.error('Error while connecting to Ethereum or interacting with the contract:', error);
@@ -751,19 +767,29 @@
     // Update the active raffle data on the UI
     function updateRaffleData(raffleId, totalEntries) {
         const prizePool = "1$ SHIB"; // Hardcoded prize pool for simplicity
-        document.getElementById("raffle-id").textContent = raffleIds;
+        document.getElementById("raffle-id").textContent = raffleId;
         document.getElementById("prize-pool").textContent = prizePool;
-        document.getElementById("total-entries").textContent = totalEntriess;
+        document.getElementById("total-entries").textContent = totalEntries;
     }
-        
 
-    // Initialize the UI by loading the raffle data
-    function loadRaffleData() {
-        updateRaffleData(raffleData.active.raffleId, raffleData.active.totalEntries);
+    // Load and display ended raffles
+    function loadEndedRaffles(raffleData) {
+        const endedRafflesList = document.getElementById("ended-raffles");
+        endedRafflesList.innerHTML = ""; // Clear any existing list
+
+        raffleData.ended.forEach(r => {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${r.raffleId}</td><td>${r.winner}</td><td>${r.entries}</td>`;
+            endedRafflesList.appendChild(row);
+        });
     }
+
+    // Simulated data (replace with contract interaction when available)
+    
 
     // Call the main function to connect to the wallet and interact with the contract
     connectAndInteract().then(loadRaffleData);
 </script>
+
 </body>
 </html>
