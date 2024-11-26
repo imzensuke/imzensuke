@@ -759,6 +759,14 @@
             endedRafflesList.appendChild(row);
         });
     }
+        const raffleData = {
+                        active: {
+                            raffleId: currentId,
+                            prizePool: "1$ SHIB",
+                            totalEntries: entries
+                        }
+                    };
+        
 
     // Initialize the UI by loading the raffle data
     function loadRaffleData() {
