@@ -724,12 +724,16 @@
                     }
                 }
 
-                // Fetch current raffle ID and total entries
-                const raffleIds = await doorContract.methods.currentRaffleId().call({ from: account });
-                const totalEntriess = await doorContract.methods.entries(JSON.stringify(account.toString())).call({ from: account });
+                // Fetch current raffle ID and total entries from the contract
+                const raffleId = await doorContract.methods.currentRaffleId().call({ from: account });
+                const totalEntries = await doorContract.methods.entries().call({ from: account });
 
                 // Update the UI with active raffle information
-                updateRaffleData(raffleIds, totalEntriess);
+                updateRaffleData(raffleId, totalEntries);
+
+                // Fetch and display ended raffles
+                const endedRaffles = await getEndedRaffles(doorContract);
+                loadEndedRaffles(endedRaffles);
 
             } catch (error) {
                 console.error('Error while connecting to Ethereum or interacting with the contract:', error);
@@ -751,6 +755,30 @@
         }
     }
 
+    // Fetch ended raffle data from the contract
+    async function getEndedRaffles(doorContract) {
+        try {
+            const totalRaffles = await doorContract.methods.totalRaffles().call();
+            const endedRaffles = [];
+
+            for (let i = 0; i < totalRaffles; i++) {
+                const raffle = await doorContract.methods.raffles(i).call();
+                if (raffle.status === 'ended') {
+                    endedRaffles.push({
+                        raffleId: raffle.raffleId,
+                        winner: raffle.winner,
+                        entries: raffle.entries
+                    });
+                }
+            }
+
+            return endedRaffles;
+        } catch (error) {
+            console.error('Error fetching ended raffles:', error);
+            return [];
+        }
+    }
+
     // Update the active raffle data on the UI
     function updateRaffleData(raffleId, totalEntries) {
         const prizePool = "1$ SHIB"; // Hardcoded prize pool for simplicity
@@ -764,29 +792,15 @@
         const endedRafflesList = document.getElementById("ended-raffles");
         endedRafflesList.innerHTML = ""; // Clear any existing list
 
-        raffleData.ended.forEach(r => {
+        raffleData.forEach(r => {
             const row = document.createElement("tr");
             row.innerHTML = `<td>${r.raffleId}</td><td>${r.winner}</td><td>${r.entries}</td>`;
             endedRafflesList.appendChild(row);
         });
     }
 
-    // Simulated data (replace with contract interaction when available)
-    const raffleData = {
-        active: {
-            raffleId: 1,
-            prizePool: "1$ SHIB",
-            totalEntries: 1
-        }
-    };
-
-    // Initialize the UI by loading the raffle data
-    function loadRaffleData() {
-        updateRaffleData(raffleData.active.raffleId, raffleData.active.totalEntries);
-    }
-
     // Call the main function to connect to the wallet and interact with the contract
-    connectAndInteract().then(loadRaffleData);
+    connectAndInteract();
 </script>
 
 </body>
