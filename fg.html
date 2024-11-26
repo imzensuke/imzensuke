@@ -92,7 +92,7 @@
             <p><strong>Price:</strong> <span id="prize-pool">Loading...</span></p>
             <p><strong>Total Entries:</strong> <span id="total-entries">Loading...</span></p>
         </div>
-        <button class="button" onclick="buyTicket()">Buy a ticket.</button>
+        <button class="button" id="buy-ticket-button">Buy a ticket.</button>
     </div>
 
     <!---<div class="container">
@@ -709,6 +709,9 @@
 
                 const priceUsd = priceData.pairs[0].priceUsd;
                 const shibForOneUSD = (1 / priceUsd).toFixed(0); // Calculate SHIB for 1 USD
+
+                const buyButton = document.getElementById("buy-ticket-button");
+                buyButton.onclick = buyTicket;
 
                 // Function to buy a raffle ticket
                 async function buyTicket() {
