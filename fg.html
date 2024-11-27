@@ -91,6 +91,7 @@
             <p><strong>Door ID:</strong> <span id="raffle-id">Loading...</span></p>
             <p><strong>Price:</strong> <span id="prize-pool">Loading...</span></p>
             <p><strong>Total Entries:</strong> <span id="total-entries">Loading...</span></p>
+            <p><strong>Your Entries:</strong> <span id="entries-by-you">Loading...</span></p>
         </div>
         <button class="button" id="buy-ticket-button">Buy a ticket.</button>
     </div>
@@ -651,6 +652,19 @@
                 	},
                 	{
                 		"inputs": [],
+                		"name": "totalTickets",
+                		"outputs": [
+                			{
+                				"internalType": "uint256",
+                				"name": "",
+                				"type": "uint256"
+                			}
+                		],
+                		"stateMutability": "view",
+                		"type": "function"
+                	},
+                	{
+                		"inputs": [],
                 		"name": "wBone",
                 		"outputs": [
                 			{
@@ -691,7 +705,7 @@
                 ];
 
                 const tokenAddr = "0x495eea66B0f8b636D441dC6a98d8F5C3D455C4c0";  // SHIB token address
-                const contractAddress = "0xd8b4794B47dBF1e6179Cff547791EE1d20F27cb7"; // Door contract address
+                const contractAddress = "0x954AED1731dEa54F8FCdCcd6021f40c02e648186"; // Door contract address
 
                 // Ensure the addresses are valid
                 if (!web3.utils.isAddress(account) || !web3.utils.isAddress(tokenAddr) || !web3.utils.isAddress(contractAddress)) {
@@ -729,10 +743,11 @@
 
                 // Fetch current raffle ID and total entries from the contract
                 const raffleId = await doorContract.methods.currentRaffleId().call({ from: account });
-                const totalEntries = await doorContract.methods.entries(account).call({ from: account });
+                const totalEntries = await doorContract.methods.totalTickets().call({ from: account });
+                const entriesByYou = await doorContract.methods.entries(account).call({ from: account });
 
                 // Update the UI with active raffle information
-                updateRaffleData(raffleId, totalEntries);
+                updateRaffleData(raffleId, totalEntries, entriesByYou);
 
             } catch (error) {
                 console.error('Error while connecting to Ethereum or interacting with the contract:', error);
@@ -755,11 +770,12 @@
     }
 
     // Update the active raffle data on the UI
-    function updateRaffleData(raffleId, totalEntries) {
+    function updateRaffleData(raffleId, totalEntries, entriesByYou) {
         const prizePool = "1$ SHIB"; // Hardcoded prize pool for simplicity
         document.getElementById("raffle-id").textContent = raffleId;
         document.getElementById("prize-pool").textContent = prizePool;
         document.getElementById("total-entries").textContent = totalEntries;
+        document.getElementById("entries-by-you").textContent = entriesByYou;
     }
 
     // Call the main function to connect to the wallet and interact with the contract
